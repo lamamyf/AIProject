@@ -1,2 +1,0 @@
-INDEX VERSION 1.131+C:\Users\a7lan\Documents\GitHub\AIProject\.metadata\.plugins\org.eclipse.jdt.core
-1671692264.index
