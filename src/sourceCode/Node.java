@@ -7,8 +7,8 @@ class Node {
     Node leftChild;
     Node rightChild;
 
-    Node(String value) {
-        this.value = value;
+    Node() {
+        this.value = "0";
         leftChild = null;
         rightChild = null;
     }

@@ -1,43 +1,36 @@
 package sourceCode;
 
+import java.util.*;
 public class BinaryTree {
     //BT Attributes:
     Node root;
 
-    //Method called to ctreate a BT:
-    private BinaryTree createBinaryTree() {
-        BinaryTree bt = new BinaryTree();
-        return bt;
+    public BinaryTree() {
+    	root = null;
     }
-    
-    //Method to add Node with a value: 
-    private Node addRecursive(Node current, String value) {
-        if (current == null) {
-            return new Node(value);
-        }
-    //This code is modified. To be later discussed:
-        if (current.leftChild == null) {
-            current.leftChild = addRecursive(current.leftChild, value);
-        } else if (current.rightChild == null) {
-            current.rightChild = addRecursive(current.rightChild, value);
-        } else {
-            return current;
-        }
 
-        return current;
+    public void generateTree(String [] input) {
+    	Queue<Node> parents = new LinkedList<Node>();
+
+    	Node rootNode = new Node(); 
+    	root = rootNode;
+    	parents.add(rootNode);
+    	
+    	for(int i = 1 ; i<input.length; i += 2) {
+    		Node current = parents.poll();
+    		
+    		if (input[i] != null){
+    			Node leftChild = new Node();
+    			current.leftChild = leftChild;
+    			parents.add(leftChild);
+    		}
+    		
+    		if (i + 1 < input.length && input[i + 1] != null) {
+    			Node rightChild = new Node();
+    			current.rightChild = rightChild;
+    			parents.add(rightChild);
+    		}
+    	
+    	}
     }
-    
-  //Method to add Node with a value: 
-    public void add(String value) {
-        root = addRecursive(root, value);
-    }
-    //Method to traverse using DFS (in-order):
-    public void traverseInOrder(Node node) {
-        if (node != null) {
-            traverseInOrder(node.leftChild);
-            System.out.print(" " + node.value);
-            traverseInOrder(node.rightChild);
-        }
-    }
-    
 }
