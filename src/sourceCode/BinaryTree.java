@@ -74,7 +74,7 @@ public class BinaryTree {
     			return;
     		}
     		
-    		//I have one child only /* changed not sure!*/
+    		//I have one child only /*changed not sure!*/
     		if (!isFullSubTree) {
     			
     			if(current.leftChild != null && current.leftChild.hasCamera() && current.leftChild.isLeaf()) {
