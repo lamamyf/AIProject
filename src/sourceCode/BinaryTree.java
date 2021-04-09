@@ -11,6 +11,8 @@ public class BinaryTree {
     }
     
     public void setNodeValue(Node node, String value, NodeMonitoringStatus status){
+    	node.status = status;
+    	
     	if (value.equals("c")) {
     		node.value = "c";
     		numberOfCameras++;
@@ -48,6 +50,7 @@ public class BinaryTree {
     
     public void search() {
     	search(root);
+    	System.out.println(numberOfCameras);
     }
     
     private void search(Node current) {
@@ -71,12 +74,14 @@ public class BinaryTree {
     			return;
     		}
     		
-    		//I have one child only
-    		if (!isFullSubTree && !current.isLeaf()) {
-    			if(current.leftChild != null) {
+    		//I have one child only /* changed not sure!*/
+    		if (!isFullSubTree) {
+    			
+    			if(current.leftChild != null && current.leftChild.hasCamera() && current.leftChild.isLeaf()) {
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
-    			}else {
+    				
+    			}else if (current.rightChild != null && current.rightChild.hasCamera() && current.rightChild.isLeaf()) {
     				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     			}
@@ -85,7 +90,9 @@ public class BinaryTree {
     		}
     		
     		if(!current.isLeaf()) {
+    			
     			boolean unmonitredChild = false;
+    			
     			if(current.leftChild != null && current.leftChild.hasCamera() && 
     					!current.leftChild.isLeaf() && !current.leftChild.areChildernMonitredByParent()) {
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
