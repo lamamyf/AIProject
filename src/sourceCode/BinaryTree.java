@@ -46,7 +46,17 @@ public class BinaryTree {
     	}
     }
     
-    public void search(Node current) {
+    public void search() {
+    	search(root);
+    }
+    
+    private void search(Node current) {
+    	if(current == null)
+    		return;
+    	
+    	search(current.leftChild);
+    	search(current.rightChild);
+    	
     	boolean isFullSubTree = current.leftChild != null && current.rightChild != null;
     	
     	if (current.isMonitred()) {
