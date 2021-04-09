@@ -6,9 +6,8 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-    System.out.println("_______________________________");
     System.out.println("Start program");
-    System.out.println("_______________________________");
+    System.out.println("________________________________________________________");
     readBinaryTreeFromFile();
     
 	}
@@ -22,7 +21,7 @@ public class MainClass {
 		FileReader fileReader = new FileReader (BTFile);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
-		//Case1: If BinaryTree.txt is empty, the program ends with a message.
+		//If BinaryTree.txt is empty, the program ends with a message.
 		if (BTFile.length() == 0){
 			System.out.println("BinaryTree.txt file is empty. Please enter a valid bank floor map.");
 			System.out.println("Program end.");
@@ -58,14 +57,14 @@ public class MainClass {
 	}
 		
 	public static String[] validateBankFloorMap (String bankFloorMap) {
-		//This method can be updated later:
+		//Note: This method can be updated later.
 
 		String [] emptyArray = {};
 		
 		//Validate if bankFloorMap has the format [x,y,0]:
-		String pattern = "(^\\[[[\\,\\[a-zA-Z0-9]*\\,]*\\]$)";
+		String pattern = "(^\\[[[\\,\\[a-zA-Z0-9]\\,]*\\]$)";
 		if (!(bankFloorMap.matches(pattern))) {
-			System.out.println("A bank floor map value must have the following fromat [first,second] where first and second can be 0 or null.");
+			System.out.println("Bank floor map's value must follow a format. Here is an example for 2 values: [first,second] where first (root of BT) must equal 0 and second can be 0 or null.");
 			return emptyArray;
 		}
 		
@@ -75,27 +74,39 @@ public class MainClass {
 		String [] bankFloorMapArray = bankFloorMap.split(",");
 
 		//Validate bankFloorMap's length:
-		if ((bankFloorMap.length() == 0) || (bankFloorMapArray.length == 0) ||(bankFloorMapArray.length > 1000)) {
-			System.out.println("A bank floor map's length must be in the range 1-1000.");
+		if ((bankFloorMap.length() == 0) || (bankFloorMapArray.length == 0) || (bankFloorMapArray.length > 1000)) {
+			System.out.println("Bank floor map's length must be in the range 1-1000.");
 			return emptyArray;
 		}
-			
-		//Case 2: Ensure that the array only has 0 or null as values:
+		
+		//Ensure that first index (root) != null:
+		if (bankFloorMapArray[0].equals("null")){
+			System.out.println("The first value (root of BT) of bank floor map can not be null.");
+		    return emptyArray;
+
+		}
+		
+		//Ensure that the array only has 0 or null as values:
 		for(int i = 0; i<bankFloorMapArray.length; i++) {
-				
+			System.out.println(bankFloorMapArray[i]+ " for."+bankFloorMapArray.length);
+
 			if (!(bankFloorMapArray[i].equals("0"))){
 					
 				if (!(bankFloorMapArray[i].equals("null"))){
-
-					System.out.println(bankFloorMapArray[i]+ " is not valid. Only 0 and null are considered valid values for a bank floor map.");
+					
+                    if(bankFloorMapArray[i].equals(""))
+    					System.out.println(bankFloorMapArray[i]+ "An empty value was found which is considered invalid. Only 0 and null are considered valid values for a bank floor map.");
+         
+                    else
+					    System.out.println(bankFloorMapArray[i]+ " value was found which is considered invalid. Only 0 and null are considered valid values for a bank floor map.");
 				    return emptyArray;
 				   }
 			}
 			
 			//If it is a valid value, and that value is "null" as a string, then make it point to null.
-			if(bankFloorMapArray[i].equals("null")){
+			if(bankFloorMapArray[i].equals("null"))
 				bankFloorMapArray[i] = null;
-			}
+			
 		}
 		
 		//If input is valid, return bankFloorMap as a string array:
