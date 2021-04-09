@@ -87,9 +87,14 @@ public class MainClass {
 					
 				if (!(bankFloorMapArray[i].equals("null"))){
 
-					System.out.println(bankFloorMapArray[i]+ "is not valid. Only 0 and null are considered valid values for a bank floor map.");
+					System.out.println(bankFloorMapArray[i]+ " is not valid. Only 0 and null are considered valid values for a bank floor map.");
 				    return emptyArray;
 				   }
+			}
+			
+			//If it is a valid value, and that value is "null" as a string, then make it point to null.
+			if(bankFloorMapArray[i].equals("null")){
+				bankFloorMapArray[i] = null;
 			}
 		}
 		
