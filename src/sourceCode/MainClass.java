@@ -8,8 +8,18 @@ public class MainClass {
 		// TODO Auto-generated method stub
     System.out.println("Start program");
     System.out.println("________________________________________________________");
-    readBinaryTreeFromFile();
     
+    //Only for testing the tree 
+    BinaryTree BTtree = new BinaryTree();
+    String [] nodes = {"0","0","0","0","0",null,"0","0","0",null,"0",null,"0","0"};
+    BTtree.generateTree(nodes);
+    BTtree.search();
+    BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
+    treePrinter.printTree(BTtree.root);
+    System.out.println("________________________________________________________");
+    //--------------------------
+    
+    readBinaryTreeFromFile();
 	}
 	
 	public static void readBinaryTreeFromFile() {

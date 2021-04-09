@@ -41,7 +41,7 @@ class Node {
     }
     
     public boolean areChildernMonitredByParent() {
-    	return rightChild.status == NodeMonitoringStatus.MonitoredByParent ||
-    			leftChild.status == NodeMonitoringStatus.MonitoredByParent ;
+    	return (rightChild != null && rightChild.status == NodeMonitoringStatus.MonitoredByParent) ||
+    			(leftChild != null && leftChild.status == NodeMonitoringStatus.MonitoredByParent);
     }
 }
