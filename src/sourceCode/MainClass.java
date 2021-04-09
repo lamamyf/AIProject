@@ -9,20 +9,29 @@ public class MainClass {
     System.out.println("Start program");
     System.out.println("________________________________________________________");
     
-    //Only for testing the tree 
     BinaryTree BTtree = new BinaryTree();
-    String [] nodes = {"0","0","0","0","0",null,"0","0","0",null,"0",null,"0","0"};
+    //-------------Manual: only for testing the tree:--------------------------------------
+//    String [] nodes = {"0","0","0","0","0",null,"0","0","0",null,"0",null,"0","0"};
+//    BTtree.generateTree(nodes);
+//    BTtree.search();
+//    BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
+//    treePrinter.printTree(BTtree.root);
+    //-------------Manual: only for testing the tree:-------------------------------------
+    
+    //-----------Read BT from file:-------------------------------------------------------
+    String[] nodes = readBinaryTreeFromFile();
+    if(nodes.length != 0) {
     BTtree.generateTree(nodes);
     BTtree.search();
     BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
     treePrinter.printTree(BTtree.root);
-    System.out.println("________________________________________________________");
-    //--------------------------
-    
-    readBinaryTreeFromFile();
+    }
+    //-----------Read BT from file:-------------------------------------------------------
 	}
 	
-	public static void readBinaryTreeFromFile() {
+	public static String[] readBinaryTreeFromFile() {
+		
+		String[] emptyArray = {};
 		
 		try {
 				
@@ -50,6 +59,8 @@ public class MainClass {
 			
 		bufferedReader.close();
 		fileReader.close();
+		
+		return validatedBFM;
 			
 		}
 		catch(FileNotFoundException e) {
@@ -64,6 +75,8 @@ public class MainClass {
 		System.out.println(e.getMessage());
 		System.out.println("Program end.");
 		System.exit(1);}
+		
+		return emptyArray;
 	}
 		
 	public static String[] validateBankFloorMap (String bankFloorMap) {
