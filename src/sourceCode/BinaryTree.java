@@ -5,6 +5,9 @@ public class BinaryTree {
     //BT Attributes:
     Node root;
     int numberOfCameras;
+    int branchingFactor = 2;
+    int numberOfNodes;
+
     
     public BinaryTree() {
     	root = null;
@@ -29,6 +32,7 @@ public class BinaryTree {
     	Node rootNode = new Node(); 
     	root = rootNode;
     	parents.add(rootNode);
+    	numberOfNodes++;
     	
     	for(int i = 1 ; i<input.length; i += 2) {
     		Node current = parents.poll();
@@ -37,12 +41,14 @@ public class BinaryTree {
     			Node leftChild = new Node();
     			current.leftChild = leftChild;
     			parents.add(leftChild);
+    			numberOfNodes++;
     		}
     		
     		if (i + 1 < input.length && input[i + 1] != null) {
     			Node rightChild = new Node();
     			current.rightChild = rightChild;
     			parents.add(rightChild);
+    			numberOfNodes++;
     		}
     	
     	}
@@ -50,7 +56,6 @@ public class BinaryTree {
     
     public void search() {
     	search(root);
-    	System.out.println(numberOfCameras);
     }
     
     private void search(Node current) {
@@ -109,4 +114,33 @@ public class BinaryTree {
     	/* put camera initially, will optimize it later!*/
     	setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     }
+    
+    //Find maximum length of any path in the state space = BT max depth:
+    public void findBTMaxDepth(){
+    	int BTMaxDepth = findBTMaxDepth(root);
+        System.out.println("   ● Space complexity for DFS is O(branching factor * maximum length of any path) = O(2 * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
+
+    }
+    
+    
+    private int findBTMaxDepth(Node current)
+    {
+        if (current == null)
+            return 0;
+        else
+        {
+            //Find right and left subtrees depth:
+            int leftSubtreeDepth = findBTMaxDepth(current.leftChild);
+            int rightSubtreeDepth = findBTMaxDepth(current.rightChild);
+  
+            //Return the max of the two subtrees:
+            if (leftSubtreeDepth > rightSubtreeDepth)
+                return (leftSubtreeDepth + 1);
+             else
+                return (rightSubtreeDepth + 1);
+        }
+    }
+
+    
+    
 }

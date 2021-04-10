@@ -7,25 +7,37 @@ public class MainClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
     System.out.println("Start program");
-    System.out.println("________________________________________________________");
+    System.out.println("__________________________________________________________________________________________");
+    System.out.println("Welcome,");
+    System.out.println("You can give us the bank's floor map as an input in the BinaryTree.txt file and \r\n" + 
+    		"our program will return the mininmum number of 📷 (s) and their locations using DFS!");
+    System.out.println("__________________________________________________________________________________________");
     
     BinaryTree BTtree = new BinaryTree();
     //-------------Manual: only for testing the tree:--------------------------------------
-    String [] nodes = {"0"};
+    String [] nodes = {"0","0","0",null,"0",null,"0","0","0"};
     //-------------Manual: only for testing the tree:-------------------------------------
     
     //-----------Read BT from file:-------------------------------------------------------
 //    String[] nodes = readBinaryTreeFromFile();
     //-----------Read BT from file:-------------------------------------------------------
+    
     if(nodes.length != 0) {
     BTtree.generateTree(nodes);
     BTtree.search();
     BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
     System.out.println("● The binary tree representing the floor map: ");
     treePrinter.printTree(BTtree.root);
-    System.out.println("● At least "+BTtree.numberOfCameras+" cameras are needed to monitor all nodes of the tree. The \r\n" + 
-    		"above image shows one of the valid configurations of camera placement.");
+    System.out.println("__________________________________________________________________________________________");
+    System.out.println("● At least "+BTtree.numberOfCameras+"  📷 (s) are needed to monitor all nodes of the tree. The \r\n" + 
+    		"above image shows one of the valid configurations of 📷   placement.");
+    System.out.println("__________________________________________________________________________________________");
     System.out.println("● The performance of the search algorithm is: ");
+    System.out.println("   ● Time complexity for DFS is O(Number of nodes visited) = O("+ BTtree.numberOfNodes+").");
+    BTtree.findBTMaxDepth();
+    System.out.println("__________________________________________________________________________________________");
+	System.out.println("Program reached the end, Thank you!");
+
     }
 	}
 	
