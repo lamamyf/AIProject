@@ -63,7 +63,7 @@ public class BinaryTree {
     	boolean isFullSubTree = current.leftChild != null && current.rightChild != null;
     	
     	if (current.isMonitred()) {
-    		
+    		//might split this?
     		if (isFullSubTree && current.leftChild.hasCamera() && current.rightChild.hasCamera() && 
     				current.leftChild.isLeaf() && current.rightChild.isLeaf()) {
     			
@@ -80,19 +80,21 @@ public class BinaryTree {
     			if(current.leftChild != null && current.leftChild.hasCamera() && current.leftChild.isLeaf()) {
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
+    				return;
     				
     			}else if (current.rightChild != null && current.rightChild.hasCamera() && current.rightChild.isLeaf()) {
     				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
+    				return;
     			}
     			
-    			return;
+    			
     		}
     		
     		if(!current.isLeaf()) {
     			
     			boolean unmonitredChild = false;
-    			
+    		
     			if(current.leftChild != null && current.leftChild.hasCamera() && 
     					!current.leftChild.isLeaf() && !current.leftChild.areChildernMonitredByParent()) {
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
