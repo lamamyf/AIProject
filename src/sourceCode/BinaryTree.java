@@ -63,15 +63,23 @@ public class BinaryTree {
     	boolean isFullSubTree = current.leftChild != null && current.rightChild != null;
     	
     	if (current.isMonitred()) {
-    		//might split this?
-    		if (isFullSubTree && current.leftChild.hasCamera() && current.rightChild.hasCamera() && 
-    				current.leftChild.isLeaf() && current.rightChild.isLeaf()) {
+    		if (isFullSubTree) {
+    			boolean unmonitredChild = false;
+    			if (current.leftChild.hasCamera() && current.leftChild.isLeaf()){
+    				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
+    				unmonitredChild = true;
+    			}
     			
-    			setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
-    			setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
-    			setNodeValue(current,"c", NodeMonitoringStatus.MonitoredBySelf);
+    			if (current.rightChild.hasCamera() && current.rightChild.isLeaf()){
+    				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
+    				unmonitredChild = true;
+    			}
     			
-    			return;
+    			if (unmonitredChild) {
+    				setNodeValue(current,"c", NodeMonitoringStatus.MonitoredBySelf);
+    				return;
+    			}
+    			
     		}
     		
     		//I have one child only /*changed not sure!*/
