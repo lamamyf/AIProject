@@ -11,22 +11,22 @@ public class MainClass {
     
     BinaryTree BTtree = new BinaryTree();
     //-------------Manual: only for testing the tree:--------------------------------------
-//    String [] nodes = {"0","0","0","0","0",null,"0","0","0",null,"0",null,"0","0"};
-//    BTtree.generateTree(nodes);
-//    BTtree.search();
-//    BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
-//    treePrinter.printTree(BTtree.root);
+    String [] nodes = {"0"};
     //-------------Manual: only for testing the tree:-------------------------------------
     
     //-----------Read BT from file:-------------------------------------------------------
-    String[] nodes = readBinaryTreeFromFile();
+//    String[] nodes = readBinaryTreeFromFile();
+    //-----------Read BT from file:-------------------------------------------------------
     if(nodes.length != 0) {
     BTtree.generateTree(nodes);
     BTtree.search();
     BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
+    System.out.println("● The binary tree representing the floor map: ");
     treePrinter.printTree(BTtree.root);
+    System.out.println("● At least "+BTtree.numberOfCameras+" cameras are needed to monitor all nodes of the tree. The \r\n" + 
+    		"above image shows one of the valid configurations of camera placement.");
+    System.out.println("● The performance of the search algorithm is: ");
     }
-    //-----------Read BT from file:-------------------------------------------------------
 	}
 	
 	public static String[] readBinaryTreeFromFile() {
