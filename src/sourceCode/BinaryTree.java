@@ -118,7 +118,7 @@ public class BinaryTree {
     //Find maximum length of any path in the state space = BT max depth:
     public void findBTMaxDepth(){
     	int BTMaxDepth = findBTMaxDepth(root);
-        System.out.println("   ● Space complexity for DFS is O(branching factor * maximum length of any path) = O(2 * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
+        System.out.println("   - Space complexity for DFS is O(branching factor * maximum length of any path) = O(2 * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
 
     }
     

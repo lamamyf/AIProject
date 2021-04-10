@@ -4,42 +4,40 @@ import java.io.*;
 
 public class MainClass {
 
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-    System.out.println("Start program");
+
+	System.out.println("Start program");
     System.out.println("__________________________________________________________________________________________");
     System.out.println("Welcome,");
     System.out.println("You can give us the bank's floor map as an input in the BinaryTree.txt file and \r\n" + 
-    		"our program will return the mininmum number of 📷 (s) and their locations using DFS!");
+    		"our program will return the mininmum number of camera(s) and their locations using DFS!");
     System.out.println("__________________________________________________________________________________________");
     
     BinaryTree BTtree = new BinaryTree();
-    //-------------Manual: only for testing the tree:--------------------------------------
-//    String [] nodes = {"0","0","0",null,"0",null,"0","0","0"};
-    //-------------Manual: only for testing the tree:-------------------------------------
     
-    //-----------Read BT from file:-------------------------------------------------------
     String[] nodes = readBinaryTreeFromFile();
-    //-----------Read BT from file:-------------------------------------------------------
     
     if(nodes.length != 0) {
     BTtree.generateTree(nodes);
     BTtree.search();
     BinaryTreePrinter treePrinter = new BinaryTreePrinter(node -> ("" + node.value), node -> node.leftChild, node -> node.rightChild);
-    System.out.println("● The binary tree representing the floor map: ");
+    System.out.println("- The binary tree representing the floor map: ");
     treePrinter.printTree(BTtree.root);
     System.out.println("__________________________________________________________________________________________");
-    System.out.println("● At least "+BTtree.numberOfCameras+"  📷 (s) are needed to monitor all nodes of the tree. The \r\n" + 
-    		"above image shows one of the valid configurations of 📷   placement.");
+    System.out.println("- At least "+BTtree.numberOfCameras+"  camera(s) are needed to monitor all nodes of the tree. The \r\n" + 
+    		"above image shows one of the valid configurations of cameras' placement.");
     System.out.println("__________________________________________________________________________________________");
-    System.out.println("● The performance of the search algorithm is: ");
-    System.out.println("   ● Time complexity for DFS is O(Number of nodes visited) = O("+ BTtree.numberOfNodes+").");
+    System.out.println("- The performance of the search algorithm is: ");
+    System.out.println("   - Time complexity for DFS is O(Number of nodes visited) = O("+ BTtree.numberOfNodes+").");
     BTtree.findBTMaxDepth();
     System.out.println("__________________________________________________________________________________________");
 	System.out.println("Program reached the end, Thank you!");
 
     }
 	}
+	
+	
 	
 	public static String[] readBinaryTreeFromFile() {
 		
@@ -55,6 +53,7 @@ public class MainClass {
 		//If BinaryTree.txt is empty, the program ends with a message.
 		if (BTFile.length() == 0){
 			System.out.println("BinaryTree.txt file is empty. Please enter a valid bank floor map.");
+		    System.out.println("__________________________________________________________________________________________");
 			System.out.println("Program end.");
 			System.exit(1);
 		}
@@ -65,6 +64,7 @@ public class MainClass {
 		String[] validatedBFM = validateBankFloorMap(bankFloorMap);
 			
 		if (validatedBFM.length == 0){
+		    System.out.println("__________________________________________________________________________________________");
 			System.out.println("Program end.");
 			System.exit(1);
 		}
@@ -78,6 +78,7 @@ public class MainClass {
 		catch(FileNotFoundException e) {
 				
 			System.out.println("BinaryTree.txt file was not found.");
+		    System.out.println("__________________________________________________________________________________________");
 			System.out.println("Program end.");
 			System.exit(1);
 		}
@@ -85,12 +86,15 @@ public class MainClass {
 				
 		System.out.println("An exception was found, find its information below: ");
 		System.out.println(e.getMessage());
+	    System.out.println("__________________________________________________________________________________________");
 		System.out.println("Program end.");
 		System.exit(1);}
 		
 		return emptyArray;
 	}
 		
+	
+	
 	public static String[] validateBankFloorMap (String bankFloorMap) {
 		//Note: This method can be updated later.
 
@@ -147,4 +151,6 @@ public class MainClass {
 		return bankFloorMapArray;
 
 		}
+	
+	
 }
