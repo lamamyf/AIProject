@@ -15,11 +15,11 @@ public class MainClass {
     
     BinaryTree BTtree = new BinaryTree();
     //-------------Manual: only for testing the tree:--------------------------------------
-    String [] nodes = {"0","0","0",null,"0",null,"0","0","0"};
+//    String [] nodes = {"0","0","0",null,"0",null,"0","0","0"};
     //-------------Manual: only for testing the tree:-------------------------------------
     
     //-----------Read BT from file:-------------------------------------------------------
-//    String[] nodes = readBinaryTreeFromFile();
+    String[] nodes = readBinaryTreeFromFile();
     //-----------Read BT from file:-------------------------------------------------------
     
     if(nodes.length != 0) {
@@ -123,7 +123,6 @@ public class MainClass {
 		
 		//Ensure that the array only has 0 or null as values:
 		for(int i = 0; i<bankFloorMapArray.length; i++) {
-			System.out.println(bankFloorMapArray[i]+ " for."+bankFloorMapArray.length);
 
 			if (!(bankFloorMapArray[i].equals("0"))){
 					
