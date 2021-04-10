@@ -65,12 +65,12 @@ public class BinaryTree {
     	if (current.isMonitred()) {
     		if (isFullSubTree) {
     			boolean unmonitredChild = false;
-    			if (current.leftChild.hasCamera() && current.leftChild.isLeaf()){
+    			if (current.leftChild.hasCamera() && (current.leftChild.isLeaf() || !current.leftChild.areChildernMonitredByParent())){
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				unmonitredChild = true;
     			}
     			
-    			if (current.rightChild.hasCamera() && current.rightChild.isLeaf()){
+    			if (current.rightChild.hasCamera() && (current.rightChild.isLeaf() || !current.rightChild.areChildernMonitredByParent())){
     				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				unmonitredChild = true;
     			}
@@ -85,12 +85,16 @@ public class BinaryTree {
     		//I have one child only /*changed not sure!*/
     		if (!isFullSubTree) {
     			
-    			if(current.leftChild != null && current.leftChild.hasCamera() && current.leftChild.isLeaf()) {
+    			if(current.leftChild != null && current.leftChild.hasCamera() && 
+    					(current.leftChild.isLeaf() || !current.leftChild.areChildernMonitredByParent() )) {
+    				
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     				return;
     				
-    			}else if (current.rightChild != null && current.rightChild.hasCamera() && current.rightChild.isLeaf()) {
+    			}else if (current.rightChild != null && current.rightChild.hasCamera() && 
+    					(current.rightChild.isLeaf() || !current.rightChild.areChildernMonitredByParent()) ) {
+    				
     				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     				return;
@@ -99,35 +103,10 @@ public class BinaryTree {
     			
     		}
     		
-    		if(!current.isLeaf()) {
-    			
-    			boolean unmonitredChild = false;
-    		
-    			if(current.leftChild != null && current.leftChild.hasCamera() && 
-    					!current.leftChild.isLeaf() && !current.leftChild.areChildernMonitredByParent()) {
-    				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
-    				unmonitredChild = true;
-    			}
-    			
-    			if(current.rightChild != null && current.rightChild.hasCamera() && 
-    					!current.rightChild.isLeaf() && !current.rightChild.areChildernMonitredByParent()) {
-    				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
-    				unmonitredChild = true;
-    			}
-    			
-    			if(unmonitredChild)
-    				setNodeValue(current,"c", NodeMonitoringStatus.MonitoredBySelf);
-    			
-    		}
-    		
     		return;
     	}
     	
-    	if (current.isLeaf()){
-    		setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
-    		return;
-    	}
-    	
+    	/* put camera initially, will optimize it later!*/
     	setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     }
 }
