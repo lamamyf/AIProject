@@ -2,7 +2,8 @@ package sourceCode;
 
 import java.util.*;
 public class BinaryTree {
-    //BT Attributes:
+	
+    /* Binary Tree Attributes: */
     Node root;
     int numberOfCameras;
     int branchingFactor = 2;
@@ -10,9 +11,11 @@ public class BinaryTree {
 
     
     public BinaryTree() {
-    	root = null;
+    	root = null; /* the root is initially initialized to null */
     }
     
+    /*Sets the node value: either with 'c', which means the node has a camera, or '0'
+      and sets the node monitoring status: which is either NotMonitored,MonitoredBySelf, MonitoredByParent, MonitoredByChild */
     public void setNodeValue(Node node, String value, NodeMonitoringStatus status){
     	node.status = status;
     	
@@ -26,24 +29,31 @@ public class BinaryTree {
     		
     }
     
-    public void generateTree(String [] input) {
-    	Queue<Node> parents = new LinkedList<Node>();
+    /* Constructs the binary tree based on a string array (the input) */
+    public void buildBinaryTree(String [] input) {
+    	Queue<Node> parents = new LinkedList<Node>(); /* A FIFO queue to hold the parent nodes*/
 
-    	Node rootNode = new Node(); 
-    	root = rootNode;
-    	parents.add(rootNode);
+    	Node rootNode = new Node(); /* creating the root node */
+    	root = rootNode; /* saving the reference of the root node by assigning it to the root attribute */
+    	parents.add(rootNode); /* Adding the root to the parents queue, to be able to add children to it later on */
     	numberOfNodes++;
     	
+    	/* traversing the input array, starting from the second index -where i = 1-
+    	   at each iteration, the loop processes two indexes at time*/
     	for(int i = 1 ; i<input.length; i += 2) {
-    		Node current = parents.poll();
+    		Node current = parents.poll(); /* retrieves and removes the head from the parents queue */
     		
+    		/* the value at index i always represents the value of the left child, 
+    		   if it's not equal to null, then we'll create a left child for the current (parent) node*/
     		if (input[i] != null){
-    			Node leftChild = new Node();
-    			current.leftChild = leftChild;
-    			parents.add(leftChild);
-    			numberOfNodes++;
-    		}
+    			Node leftChild = new Node(); /* creates a node */
+    			current.leftChild = leftChild; /* sets the created node as a left child for the current (parent) node*/
+    			parents.add(leftChild); /* adds the child to the parents queue, to be able to add children to it later on -if it has any-*/
+    			numberOfNodes++; /* increment the number of nodes*/
+    		} 
     		
+    		/* the value at index (i + 1), always represents the value of the right child,
+    		   if it's actually a valid index and it's not equal to null, we'll create a right child for the current (parent) node*/
     		if (i + 1 < input.length && input[i + 1] != null) {
     			Node rightChild = new Node();
     			current.rightChild = rightChild;
@@ -115,7 +125,7 @@ public class BinaryTree {
     	setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     }
     
-    //Find maximum length of any path in the state space = BT max depth:
+    /* Find maximum length of any path in the state space = BT max depth: */
     public void findBTMaxDepth(){
     	int BTMaxDepth = findBTMaxDepth(root);
         System.out.println("   - Space complexity for DFS is O(branching factor * maximum length of any path) = O(2 * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
@@ -129,11 +139,11 @@ public class BinaryTree {
             return 0;
         else
         {
-            //Find right and left subtrees depth:
+            /* Find right and left subtrees depth: */
             int leftSubtreeDepth = findBTMaxDepth(current.leftChild);
             int rightSubtreeDepth = findBTMaxDepth(current.rightChild);
   
-            //Return the max of the two subtrees:
+            /* Return the max of the two subtrees: */
             if (leftSubtreeDepth > rightSubtreeDepth)
                 return (leftSubtreeDepth + 1);
              else
