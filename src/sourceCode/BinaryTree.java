@@ -6,7 +6,7 @@ public class BinaryTree {
     /* Binary Tree Attributes: */
     Node root;
     int numberOfCameras;
-    int branchingFactor = 2;
+    int branchingFactor = 2;  /* equals 2 since it is a binary tree: */
     int numberOfNodes;
 
     
@@ -125,14 +125,14 @@ public class BinaryTree {
     	setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     }
     
-    /* Find maximum length of any path in the state space = BT max depth: */
-    public void findBTMaxDepth(){
+    /* Compute and print the space complexity for DFS which equals O(bm): */
+    public void findSpaceComplexity(){
     	int BTMaxDepth = findBTMaxDepth(root);
-        System.out.println("   - Space complexity for DFS is O(branching factor * maximum length of any path) = O(2 * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
+        System.out.println("   - Space complexity for DFS is O(branching factor * maximum length of any path) = O("+ this.branchingFactor +" * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
 
     }
     
-    
+    /* Find (m) which can be defined as the maximum length of any path in the state space = BT max depth: */
     private int findBTMaxDepth(Node current)
     {
         if (current == null)
@@ -143,7 +143,7 @@ public class BinaryTree {
             int leftSubtreeDepth = findBTMaxDepth(current.leftChild);
             int rightSubtreeDepth = findBTMaxDepth(current.rightChild);
   
-            /* Return the max of the two subtrees: */
+            /* Return the max depth of the two subtrees: */
             if (leftSubtreeDepth > rightSubtreeDepth)
                 return (leftSubtreeDepth + 1);
              else
