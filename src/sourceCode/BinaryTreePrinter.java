@@ -12,7 +12,7 @@ public class BinaryTreePrinter {
     private Function<Node, Node> leftNodes;//takes the Node and return its left Node
     private Function<Node, Node> rightNodes;//takes the Node and return its left Node
 
-    public int minHorizontalSpace = 4;//minimum horizontal space between any 2 nodes
+    public int minHorizontalSpace = 3;//minimum horizontal space between any 2 nodes
 
     //BinaryTreePrinter constructor
     public BinaryTreePrinter(Function<Node, String> nodeValue, Function<Node, Node> leftNodes, Function<Node, Node> rightNodes) {
@@ -69,23 +69,29 @@ public class BinaryTreePrinter {
             //if we only have a right subtree
             if (leftTreeLines.isEmpty()) {
                 if (!rightTreeLines.isEmpty()) {
-                            allTreeLines.add(new TreeLine("\u2514\u2510", 0, 1));
-                            rightTreeAdjustment = 1;
+                	allTreeLines.add(new TreeLine("\\", 1, 1));
+                	rightTreeAdjustment = 2;
                 }
             
             //if we only have a left subtree
             } else if (rightTreeLines.isEmpty()) {
-                        allTreeLines.add(new TreeLine("\u250C\u2518", -1, 0));
-                        leftTreeAdjustment = -1; 
+            	    allTreeLines.add(new TreeLine("/", -1, -1));
+            	    leftTreeAdjustment = -2; 
                         
             //if we have both right and left subtree
             } else {         
-                    int adjust = (rootSpacing / 2) + 1;
-                    String horizontal = String.join("", Collections.nCopies(rootSpacing / 2, "\u2500"));
-                    String branch = "\u250C" + horizontal + "\u2534" + horizontal + "\u2510";
-                    allTreeLines.add(new TreeLine(branch, -adjust, adjust));
-                    rightTreeAdjustment = adjust;
-                    leftTreeAdjustment = -adjust;
+            	if (rootSpacing == 1) {
+                    allTreeLines.add(new TreeLine("/ \\", -1, 1));
+                    rightTreeAdjustment = 2;
+                    leftTreeAdjustment = -2;
+                } else {
+                    for (int i = 1; i < rootSpacing; i += 2) {
+                        String branches = "/" + spaces(i) + "\\";
+                        allTreeLines.add(new TreeLine(branches, -((i + 1) / 2), (i + 1) / 2));
+                    }
+                    rightTreeAdjustment = (rootSpacing / 2) + 1;
+                    leftTreeAdjustment = -((rootSpacing / 2) + 1);
+                }
             }
             
             //loop to add the lines of the subtrees with the calculated spaces and the adjusted offsets
@@ -104,7 +110,7 @@ public class BinaryTreePrinter {
                 } else {
                     leftLine = leftTreeLines.get(i);
                     rightLine = rightTreeLines.get(i);
-                    int adjustedRootSpacing = (rootSpacing == 1 ? 1 : rootSpacing);
+                    int adjustedRootSpacing = (rootSpacing == 1 ? 3 : rootSpacing);
                     TreeLine combined = new TreeLine(leftLine.line + spaces(adjustedRootSpacing - leftLine.rightOffset + rightLine.leftOffset) + rightLine.line,
                             leftLine.leftOffset + leftTreeAdjustment, rightLine.rightOffset + rightTreeAdjustment);
                     allTreeLines.add(combined);
