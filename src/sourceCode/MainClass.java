@@ -96,9 +96,10 @@ public class MainClass {
 	
 	
 	public static String[] validateBankFloorMap (String bankFloorMap) {
-		//Note: This method can be updated later.
 
 		String [] emptyArray = {};
+		
+		bankFloorMap = bankFloorMap.trim();
 		
 		//Validate if bankFloorMap has the format [x,y,0]:
 		String pattern = "(^\\[[[\\,\\[a-zA-Z0-9]\\,]*\\]$)";
