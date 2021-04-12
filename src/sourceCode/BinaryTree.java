@@ -64,16 +64,17 @@ public class BinaryTree {
     	}
     }
     
-    public void search() {
-    	search(root);
+    public void installSurveillanceCameras() {
+    	installSurveillanceCameras(root);
     }
     
-    private void search(Node current) {
+    private void installSurveillanceCameras(Node current) {
+    	/*there are no more nodes along the current path, you move backwards on the same path to find nodes to traverse. */
     	if(current == null)
     		return;
     	
-    	search(current.leftChild);
-    	search(current.rightChild);
+    	installSurveillanceCameras(current.leftChild);
+    	installSurveillanceCameras(current.rightChild);
     	
     	boolean isFullSubTree = current.leftChild != null && current.rightChild != null;
     	

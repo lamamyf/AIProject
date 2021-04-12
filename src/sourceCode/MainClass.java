@@ -28,7 +28,7 @@ public class MainClass {
     BTtree.buildBinaryTree(nodes);
     
     /* Start search: */
-    BTtree.search();
+    BTtree.installSurveillanceCameras();
 
     /* Print the solution: */
     /* Print the binary tree representing the bank's floor map: */
