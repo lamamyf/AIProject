@@ -68,6 +68,7 @@ public class BinaryTree {
     	installSurveillanceCameras(root);
     }
     
+    /* this recurisive method travesres the tree in a  Post-order method*/
     private void installSurveillanceCameras(Node current) {
     	/*there are no more nodes along the current path, you move backwards on the same path to find nodes to traverse. */
     	if(current == null)
@@ -81,12 +82,12 @@ public class BinaryTree {
     	if (current.isMonitred()) {
     		if (isFullSubTree) {
     			boolean unmonitredChild = false;
-    			if (current.leftChild.hasCamera() && (current.leftChild.isLeaf() || !current.leftChild.areChildernMonitredByParent())){
+    			if (current.leftChild.hasCamera() && (current.leftChild.isLeaf() || !current.leftChild.areChildrenMonitredByParent())){
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				unmonitredChild = true;
     			}
     			
-    			if (current.rightChild.hasCamera() && (current.rightChild.isLeaf() || !current.rightChild.areChildernMonitredByParent())){
+    			if (current.rightChild.hasCamera() && (current.rightChild.isLeaf() || !current.rightChild.areChildrenMonitredByParent())){
     				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				unmonitredChild = true;
     			}
@@ -102,14 +103,14 @@ public class BinaryTree {
     		if (!isFullSubTree) {
     			
     			if(current.leftChild != null && current.leftChild.hasCamera() && 
-    					(current.leftChild.isLeaf() || !current.leftChild.areChildernMonitredByParent() )) {
+    					(current.leftChild.isLeaf() || !current.leftChild.areChildrenMonitredByParent() )) {
     				
     				setNodeValue(current.leftChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
     				return;
     				
     			}else if (current.rightChild != null && current.rightChild.hasCamera() && 
-    					(current.rightChild.isLeaf() || !current.rightChild.areChildernMonitredByParent()) ) {
+    					(current.rightChild.isLeaf() || !current.rightChild.areChildrenMonitredByParent()) ) {
     				
     				setNodeValue(current.rightChild,"0", NodeMonitoringStatus.MonitoredByParent);
     				setNodeValue(current, "c", NodeMonitoringStatus.MonitoredBySelf);
