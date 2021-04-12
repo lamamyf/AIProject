@@ -17,7 +17,7 @@ class Node {
     }
     
     /* returns true if node is monitored, otherwise returns false*/
-    public boolean isMonitred() {
+    public boolean isMonitored() {
     	
     	if (status == NodeMonitoringStatus.MonitoredByChild || status == NodeMonitoringStatus.MonitoredByParent
     			|| status == NodeMonitoringStatus.MonitoredBySelf)
