@@ -7,14 +7,14 @@ import java.util.function.Function;
 
 public class BinaryTreePrinter {
     
-	//Function is an interface that takes two parameters <inputType, resultType>	
-    private Function<Node, String> nodeValue;//takes the Node and return its String value
-    private Function<Node, Node> leftNodes;//takes the Node and return its left Node
-    private Function<Node, Node> rightNodes;//takes the Node and return its left Node
+	/* Function is an interface that takes two parameters <inputType, resultType> */
+    private Function<Node, String> nodeValue;/* takes the Node and return its String value */
+    private Function<Node, Node> leftNodes;/* takes the Node and return its left Node */
+    private Function<Node, Node> rightNodes;/* takes the Node and return its right Node */
 
-    public int minHorizontalSpace = 3;//minimum horizontal space between any 2 nodes
+    public int minHorizontalSpace = 3;/* minimum horizontal space between any 2 nodes */
 
-    //BinaryTreePrinter constructor
+    /* BinaryTreePrinter constructor */
     public BinaryTreePrinter(Function<Node, String> nodeValue, Function<Node, Node> leftNodes, Function<Node, Node> rightNodes) {
         this.nodeValue = nodeValue;
         this.leftNodes = leftNodes;
@@ -22,35 +22,35 @@ public class BinaryTreePrinter {
     }
 
     public void printTree(Node rootNode) {
-        List<TreeLine> treeLines = treeLinesBuilder(rootNode);//called to build the tree lines from the root node
-        printTreeLines(treeLines);//only to print the lines
+        List<TreeLine> treeLines = treeLinesBuilder(rootNode);/* called to build the tree lines from the root node */
+        printTreeLines(treeLines);/* only to print the lines */
     }
 
     private List<TreeLine> treeLinesBuilder(Node rootNode) {
-        if (rootNode == null) return Collections.emptyList();//to avoid null pointer exception
+        if (rootNode == null) return Collections.emptyList();/* to avoid null pointer exception */
         else {
-        	//method apply applies the function on its argument 
-            String rootValue = nodeValue.apply(rootNode);//first build the lines for the root node
-            List<TreeLine> leftTreeLines = treeLinesBuilder(leftNodes.apply(rootNode));//build the lines for the left nodes recursively 
-            List<TreeLine> rightTreeLines = treeLinesBuilder(rightNodes.apply(rootNode));//build the lines for the right nodes recursively
+        	/* method applies the function on its argument */
+            String rootValue = nodeValue.apply(rootNode);/* first build the lines for the root node */
+            List<TreeLine> leftTreeLines = treeLinesBuilder(leftNodes.apply(rootNode));/* build the lines for the left nodes recursively */
+            List<TreeLine> rightTreeLines = treeLinesBuilder(rightNodes.apply(rootNode));/* build the lines for the right nodes recursively */
 
-            //get the size of the left and right lines
+            /* get the size of the left and right lines */
             int leftLinesSize = leftTreeLines.size();
             int rightLinesSize = rightTreeLines.size();
             
-            //get the maximum and minimum size for the left and right lines
+            /* get the maximum and minimum size for the left and right lines */
             int minLinesSize = Math.min(leftLinesSize, rightLinesSize);
             int maxLinesSize = Math.max(leftLinesSize, rightLinesSize);
             int maxRootSpacing = 0;
             
-            //loop on the minimum lines size to set the maximum root spacing
+            /* loop on the minimum lines size to set the maximum root spacing */
             for (int i = 0; i < minLinesSize; i++) {
                 int spacing = leftTreeLines.get(i).rightOffset - rightTreeLines.get(i).leftOffset;
                 if (spacing > maxRootSpacing) 
                 	maxRootSpacing = spacing;
             }
             
-            //set the root spacing to be the number of spacing between the two subtrees
+            /* set the root spacing to be the number of spacing between the two subtrees */
             int rootSpacing = maxRootSpacing + minHorizontalSpace;
             if (rootSpacing % 2 == 0) 
             	rootSpacing++;
@@ -59,26 +59,26 @@ public class BinaryTreePrinter {
 
             String renderedRootValue = rootValue;
             
-            //add the root and its two branches that leads to its two subtrees
+            /* add the root and its two branches that leads to its two subtrees */
             allTreeLines.add(new TreeLine(rootValue, -(renderedRootValue.length() - 1) / 2, renderedRootValue.length() / 2));
 
-            //used to set the adjustment for the left and right subtrees
+            /* used to set the adjustment for the left and right subtrees */
             int leftTreeAdjustment = 0;
             int rightTreeAdjustment = 0;
             
-            //if we only have a right subtree
+            /* if we only have a right subtree */
             if (leftTreeLines.isEmpty()) {
                 if (!rightTreeLines.isEmpty()) {
                 	allTreeLines.add(new TreeLine("\\", 1, 1));
                 	rightTreeAdjustment = 2;
                 }
             
-            //if we only have a left subtree
+            /* if we only have a left subtree */
             } else if (rightTreeLines.isEmpty()) {
             	    allTreeLines.add(new TreeLine("/", -1, -1));
             	    leftTreeAdjustment = -2; 
                         
-            //if we have both right and left subtree
+            /* if we have both right and left subtree */
             } else {         
             	if (rootSpacing == 1) {
                     allTreeLines.add(new TreeLine("/ \\", -1, 1));
@@ -94,7 +94,7 @@ public class BinaryTreePrinter {
                 }
             }
             
-            //loop to add the lines of the subtrees with the calculated spaces and the adjusted offsets
+            /* loop to add the lines of the subtrees with the calculated spaces and the adjusted offsets */
             for (int i = 0; i < maxLinesSize; i++) {
                 TreeLine leftLine, rightLine;
                 if (i >= leftTreeLines.size()) {
@@ -122,7 +122,7 @@ public class BinaryTreePrinter {
     
     private void printTreeLines(List<TreeLine> treeLines) {
         if (treeLines.size() > 0) {
-        	//Set the min left offset and max right offset for the tree lines
+        	/* Set the min left offset and max right offset for the tree lines */
             int minLeftOffset = minLeftOffset(treeLines);
             int maxRightOffset = maxRightOffset(treeLines);
             for (TreeLine treeLine : treeLines) {
@@ -133,7 +133,7 @@ public class BinaryTreePrinter {
         }
     }
 
-    //to get the min left and max right offsets for the tree lines
+    /* to get the min left and max right offsets for the tree lines */
     private static int minLeftOffset(List<TreeLine> treeLines) {
         return treeLines.stream().mapToInt(left -> left.leftOffset).min().orElse(0);
     }
@@ -141,18 +141,18 @@ public class BinaryTreePrinter {
         return treeLines.stream().mapToInt(right -> right.rightOffset).max().orElse(0);
     }
 
-    //to set a number of spaces to the tree lines
+    /* to set a number of spaces to the tree lines */
     private static String spaces(int numberOfSpaces) {
         return String.join("", Collections.nCopies(numberOfSpaces, " "));
     }
 
-    //private class for the tree lines
+    /* private class for the tree lines */
     private static class TreeLine {
         String line;
         int leftOffset;
         int rightOffset;
 
-        //TreeLine class constructor
+        /* TreeLine class constructor */
         TreeLine(String line, int leftOffset, int rightOffset) {
             this.line = line;
             this.leftOffset = leftOffset;
