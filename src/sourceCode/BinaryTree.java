@@ -1,6 +1,8 @@
 package sourceCode;
 
 import java.util.*;
+import java.math.*;
+
 public class BinaryTree {
 	
     /* Binary Tree Attributes: */
@@ -150,15 +152,23 @@ public class BinaryTree {
     
     /* Compute and print the space complexity for DFS which equals O(bm): */
     public void findSpaceComplexity(){
-    	int BTMaxDepth = findBTMaxDepth(root);
-        System.out.println("   - Space complexity for DFS is O(branching factor * maximum length of any path) = O("+ this.branchingFactor +" * "+ BTMaxDepth +") = O("+ (this.branchingFactor*BTMaxDepth)+").");
+    	int btMaxDepth = findBTMaxDepth(root);
+        System.out.println("   - Space complexity for DFS is O(branching factor * maximum depth of binary tree) = O("+ this.branchingFactor +" * "+ btMaxDepth +") = O("+ (this.branchingFactor*btMaxDepth)+").");
 
     }
     
     
+    /* Compute and print the time complexity for DFS which is calculated either in terms of visited nodes = O(n) which gives the exact time complexity, */
+    /* or in terms of the branching factor (b) and maximum depth of binary tree (m) = O(b^m) which gives the worst case time complexity: */
+    public void findTimeComplexity(){
+    	int btMaxDepth = findBTMaxDepth(root);
+        System.out.println("   - Time complexity for DFS in terms of visited nodes O(n) which gives the exact time complexity is O(Number of nodes visited) = O("+ numberOfNodes+").");
+        System.out.println("   - Time complexity for DFS in terms of the branching factor (b) and maximum depth of binary tree (m) which gives the worst case time complexity is O(branching factor ^ maximum depth of binary tree) = O("+ this.branchingFactor +" ^ "+ btMaxDepth +") = O("+ (int)(Math.pow(this.branchingFactor, btMaxDepth))+").");
+
+    }
     
    
-    /* Find (m) which can be defined as the maximum length of any path in the state space = BT max depth: */
+    /* Find (m) which can be defined as the maximum length of any path in the state space = maximum depth of binary tree: */
     private int findBTMaxDepth(Node current)
     {
         if (current == null)

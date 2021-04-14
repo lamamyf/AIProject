@@ -46,7 +46,7 @@ public class MainClass {
     System.out.println("- The performance of the search algorithm is: ");
     
     /* Print the time complexity: */
-    System.out.println("   - Time complexity for DFS is O(Number of nodes visited) = O("+ BTtree.numberOfNodes+").");
+    BTtree.findTimeComplexity();    
     
     /* Call findSpaceComplexity() to compute and print the space complexity: */
     BTtree.findSpaceComplexity();
