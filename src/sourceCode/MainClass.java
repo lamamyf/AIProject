@@ -45,7 +45,7 @@ public class MainClass {
     /* Print the performance of the search algorithm: */
     System.out.println("- The performance of the search algorithm is: ");
     
-    /* Print the time complexity: */
+    /* Call findTimeComplexity() to compute and print the time complexity: */
     BTtree.findTimeComplexity();    
     
     /* Call findSpaceComplexity() to compute and print the space complexity: */
